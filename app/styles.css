@@ -173,6 +173,7 @@ section {
     height: 80vh;
 }
 
+/* can be remove */
 .section_pic_container {
     display: flex;
     height: 400px;
@@ -265,4 +266,93 @@ section {
 
 .btn_container {
     gap: 1rem;
+}
+
+/* ABOUT SECTION */
+
+#about {
+    position: relative;
+}
+
+.about_container {
+    gap: 2rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.about_details_container {
+    justify-content: center;
+    flex-direction: column;
+}
+
+.about_container,
+.about_details_container {
+    display: flex;
+}
+
+.arrow {
+    position: absolute;
+    right: -5rem;
+    bottom: 2.5rem;
+}
+
+.details_container {
+    padding: 1.5rem;
+    flex: 1;
+    background: white;
+    border-radius: 2rem;
+    border: rgb(53, 53, 53) 0.1rem solid;
+    border-color: rgb(163, 163, 163);
+    text-align: center;
+}
+
+.section_container {
+    gap: 4rem;
+    height: 80%;
+}
+
+/* SKILLS SECTION */
+
+#skills {
+    position: relative;
+}
+
+.skill_sub_title {
+    color: rgb(85, 85, 85);
+    font-weight: 600;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.skills_details_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.article_container {
+    display: flex;
+    text-align: initial;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2.5rem;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+article {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 10rem;
+    gap: 0.5rem;
+}
+
+article .icon {
+    cursor: default;
+}
+
+article h3 {
+    white-space: nowrap;
 }
