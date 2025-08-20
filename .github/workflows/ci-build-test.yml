@@ -106,6 +106,12 @@ jobs:
                         exit 1
                     fi
                     echo "✅ /this-route-does-not-exist OK"
+            
+            -   name: Validate *.html
+                uses: Cyb3r-Jak3/html5validator-action
+                with:
+                    root: app
+                    match: '.*\.html'
 
             -   name: Clean up container
                 if: always()
