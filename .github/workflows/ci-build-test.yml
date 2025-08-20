@@ -1,0 +1,49 @@
+name: CI Build and Test
+
+on:
+    push:
+        branches: [ main ]
+        paths:
+            - "app/**"
+            - ".github/workflows/ci-build-docker.yml"
+
+    pull_request:
+        paths:
+            - "app/**"
+            - ".github/workflows/ci-build-docker.yml"
+
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            IMAGE_NAME: portfolio-ci-test
+            CONTEXT_DIR: app
+            WEB_ROOT: /usr/share/nginx/html
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Build image (no push)
+              uses: docker/build-push-action@v6
+              with:
+                  context: ${{ env.CONTEXT_DIR }}
+                  load: true
+                  tags: ${{ env.IMAGE_NAME }}:ci
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max
+
+            - name: Verify required files exist in image
+              run: |
+                  docker run --rm $IMAGE_NAME:ci sh -eu -c '
+                  test -f "$WEB_ROOT/index.html"
+                  test -f "$WEB_ROOT/404.html"
+                  test -f "$WEB_ROOT/styles.css"
+                  test -f "$WEB_ROOT/mediaqueries.css"
+                  test -f "$WEB_ROOT/app.js"
+                  test -f /etc/nginx/nginx.conf
