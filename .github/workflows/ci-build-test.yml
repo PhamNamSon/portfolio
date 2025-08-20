@@ -68,10 +68,44 @@ jobs:
                     test "$status" = "running"
 
                     if docker logs "$cid" 2>&1 | grep -Eiq 'emerg|alert|crit|error'; then
-                        echo "Detected Nginx startup errors in logs:"
+                        echo "❌ Detected Nginx startup errors in logs:"
                         docker logs "$cid"
                         exit 1
                     fi
+
+            -   name: Inspect web server
+                run: |
+                    for i in $(seq 1 20); do
+                        if curl -s http://localhost:8080/ >/dev/null; then
+                            break
+                        fi
+                        sleep 0.5
+                    done
+
+                    echo "Checking GET / ..."
+                    body=$(curl -s -o /tmp/body.html -w "%{http_code}" http://localhost:8080/)
+                    status=${body: -3}
+                    if [ "$status" != "200" ]; then
+                        echo "❌ Expected 200 for /, got $status"
+                        exit 1
+                    fi
+                    if ! grep -q "Nam Son" /tmp/body.html; then
+                        echo "❌ Expected site title text not found in /"
+                        exit 1
+                    fi
+                    echo "✅ / OK"
+                    
+                    echo "Checking GET /this-route-does-not-exist ..."
+                    status=$(curl -s -o /tmp/body404.html -w "%{http_code}" http://localhost:8080/this-route-does-not-exist)
+                    if [ "$status" != "404" ]; then
+                        echo "❌ Expected 404 for /this-route-does-not-exist, got $status"
+                        exit 1
+                    fi
+                    if ! grep -q "404" /tmp/body404.html; then
+                        echo "❌ Expected 404.html content not served"
+                        exit 1
+                    fi
+                    echo "✅ /this-route-does-not-exist OK"
 
             -   name: Clean up container
                 if: always()
