@@ -38,7 +38,7 @@ jobs:
                   cache-from: type=gha
                   cache-to: type=gha,mode=max
 
-            - name: Verify required files exist in image
+            - name: Build Docker image and verify files
               run: |
                   docker run --rm -e WEB_ROOT="${WEB_ROOT}" "$IMAGE_NAME:ci" sh -eu -c '
                   test -f "$WEB_ROOT/index.html"
@@ -47,3 +47,7 @@ jobs:
                   test -f "$WEB_ROOT/app.js"
                   test -f /etc/nginx/nginx.conf
                   test -f "$WEB_ROOT/styles.css"'
+
+            - name: Nginx syntax check
+              run: |
+                  docker run --rm "$IMAGE_NAME:ci" nginx -t
