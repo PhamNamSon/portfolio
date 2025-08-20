@@ -503,3 +503,14 @@ footer p {
 .footer_nav {
     height: 10vh;
 }
+
+
+/* 404 PAGE */
+#not_found {
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
