@@ -46,4 +46,4 @@ jobs:
                   test -f "$WEB_ROOT/styles.css"
                   test -f "$WEB_ROOT/mediaqueries.css"
                   test -f "$WEB_ROOT/app.js"
-                  test -f /etc/nginx/nginx.conf
+                  test -f /etc/nginx/nginx.conf'
