@@ -72,3 +72,13 @@ jobs:
                         docker logs "$cid"
                         exit 1
                     fi
+
+            -   name: Clean up container
+                if: always()
+                run: |
+                    if [ -n "${CID:-}" ]; then
+                        echo "Stopping container $CID..."
+                        docker rm -f "$CID"
+                    else
+                        echo "No CID found, nothing to clean up."
+                    fi
