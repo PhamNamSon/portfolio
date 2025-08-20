@@ -40,10 +40,10 @@ jobs:
 
             - name: Verify required files exist in image
               run: |
-                  docker run --rm $IMAGE_NAME:ci sh -eu -c '
+                  docker run --rm -e WEB_ROOT="${WEB_ROOT}" "$IMAGE_NAME:ci" sh -eu -c '
                   test -f "$WEB_ROOT/index.html"
                   test -f "$WEB_ROOT/404.html"
-                  test -f "$WEB_ROOT/styles.css"
                   test -f "$WEB_ROOT/mediaqueries.css"
                   test -f "$WEB_ROOT/app.js"
-                  test -f /etc/nginx/nginx.conf'
+                  test -f /etc/nginx/nginx.conf
+                  test -f "$WEB_ROOT/styles.css"'
