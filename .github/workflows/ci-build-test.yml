@@ -23,31 +23,52 @@ jobs:
             WEB_ROOT: /usr/share/nginx/html
 
         steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            
-            - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
+            -   name: Checkout
+                uses: actions/checkout@v4
 
-            - name: Build image (no push)
-              uses: docker/build-push-action@v6
-              with:
-                  context: ${{ env.CONTEXT_DIR }}
-                  load: true
-                  tags: ${{ env.IMAGE_NAME }}:ci
-                  cache-from: type=gha
-                  cache-to: type=gha,mode=max
+            -   name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v3
 
-            - name: Build Docker image and verify files
-              run: |
-                  docker run --rm -e WEB_ROOT="${WEB_ROOT}" "$IMAGE_NAME:ci" sh -eu -c '
-                  test -f "$WEB_ROOT/index.html"
-                  test -f "$WEB_ROOT/404.html"
-                  test -f "$WEB_ROOT/mediaqueries.css"
-                  test -f "$WEB_ROOT/app.js"
-                  test -f /etc/nginx/nginx.conf
-                  test -f "$WEB_ROOT/styles.css"'
+            -   name: Build image (no push)
+                uses: docker/build-push-action@v6
+                with:
+                    context: ${{ env.CONTEXT_DIR }}
+                    load: true
+                    tags: ${{ env.IMAGE_NAME }}:ci
+                    cache-from: type=gha
+                    cache-to: type=gha,mode=max
 
-            - name: Nginx syntax check
-              run: |
-                  docker run --rm "$IMAGE_NAME:ci" nginx -t
+            -   name: Verify image
+                run: |
+                    docker run --rm -e WEB_ROOT="${WEB_ROOT}" "$IMAGE_NAME:ci" sh -eu -c '
+                    test -f "$WEB_ROOT/index.html"
+                    test -f "$WEB_ROOT/404.html"
+                    test -f "$WEB_ROOT/mediaqueries.css"
+                    test -f "$WEB_ROOT/app.js"
+                    test -f /etc/nginx/nginx.conf
+                    test -f "$WEB_ROOT/styles.css"'
+
+            -   name: Nginx syntax check
+                run: |
+                    docker run --rm "$IMAGE_NAME:ci" nginx -t
+
+            -   name: Verify Docker and Nginx
+                run: |
+                    cid=$(docker run -d -p 8080:80 "$IMAGE_NAME:ci")
+                    echo "CID=$cid" >> "$GITHUB_ENV"
+
+                    for i in $(seq 1 20); do
+                        status=$(docker inspect -f '{{.State.Status}}' "$cid" 2>/dev/null || echo "exited")
+                        if [ "$status" = "running" ]; then break; fi
+                        sleep 0.5
+                    done
+
+                    status=$(docker inspect -f '{{.State.Status}}' "$cid")
+                    echo "Container status: $status"
+                    test "$status" = "running"
+
+                    if docker logs "$cid" 2>&1 | grep -Eiq 'emerg|alert|crit|error'; then
+                        echo "Detected Nginx startup errors in logs:"
+                        docker logs "$cid"
+                        exit 1
+                    fi
