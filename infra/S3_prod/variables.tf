@@ -1,4 +1,3 @@
-// infra/S3_prod/variables.tf
 variable "region" {
   type        = string
   description = "AWS region to deploy to"
@@ -10,7 +9,7 @@ variable "aws_profile" {
   default     = "portfolio-tf"
 }
 
-variable "project_name" {
-  type        = string
-  description = "Short name used for naming"
+variable "bucket_name" {
+    type        = string
+    description = "Override bucket name"
 }
