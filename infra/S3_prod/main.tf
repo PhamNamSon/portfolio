@@ -50,7 +50,5 @@ module "cloudfront" {
     domain_name         = var.root_domain
     acm_certificate_arn = aws_acm_certificate.site.arn
 
-    providers = { aws = aws.us_east_1 }
-
     depends_on = [aws_acm_certificate_validation.site]
 }

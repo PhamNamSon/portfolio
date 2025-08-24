@@ -31,6 +31,16 @@ resource "aws_cloudfront_distribution" "this" {
         allowed_methods  = ["GET", "HEAD"]
         cached_methods   = ["GET", "HEAD"]
         compress = true
+
+        forwarded_values {
+            query_string = false
+            headers      = []
+            cookies { forward = "none" }
+        }
+
+        min_ttl                = 0
+        default_ttl            = 3600
+        max_ttl                = 86400
     }
 
     custom_error_response {
@@ -50,5 +60,6 @@ resource "aws_cloudfront_distribution" "this" {
         ssl_support_method             = "sni-only"
         minimum_protocol_version       = "TLSv1.2_2021"
     }
-
 }
+
+

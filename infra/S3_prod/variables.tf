@@ -19,9 +19,3 @@ variable "root_domain" {
     type        = string
     default     = "namson.io"
 }
-
-variable "enable_www" {
-    description = "Also issue cert for www"
-    type        = bool
-    default     = true
-}
