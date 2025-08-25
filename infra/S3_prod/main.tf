@@ -1,6 +1,8 @@
 module "s3_static_site" {
     source       = "../modules/s3_static_site"
     bucket_name  = var.bucket_name
+
+    cloudfront_distribution_id = module.cloudfront.distribution_id
 }
 
 data "aws_route53_zone" "root" {
@@ -51,4 +53,48 @@ module "cloudfront" {
     acm_certificate_arn = aws_acm_certificate.site.arn
 
     depends_on = [aws_acm_certificate_validation.site]
+}
+
+resource "aws_route53_record" "root_a" {
+    zone_id = data.aws_route53_zone.root.zone_id
+    name    = var.root_domain
+    type    = "A"
+    alias {
+        name                   = module.cloudfront.distribution_domain_name
+        zone_id                = module.cloudfront.hosted_zone_id
+        evaluate_target_health = false
+    }
+}
+
+resource "aws_route53_record" "root_aaaa" {
+    zone_id = data.aws_route53_zone.root.zone_id
+    name    = var.root_domain
+    type    = "AAAA"
+    alias {
+        name                   = module.cloudfront.distribution_domain_name
+        zone_id                = module.cloudfront.hosted_zone_id
+        evaluate_target_health = false
+    }
+}
+
+resource "aws_route53_record" "www_a" {
+    zone_id = data.aws_route53_zone.root.zone_id
+    name    = "www.${var.root_domain}"
+    type    = "A"
+    alias {
+        name                   = module.cloudfront.distribution_domain_name
+        zone_id                = module.cloudfront.hosted_zone_id
+        evaluate_target_health = false
+    }
+}
+
+resource "aws_route53_record" "www_aaaa" {
+    zone_id = data.aws_route53_zone.root.zone_id
+    name    = "www.${var.root_domain}"
+    type    = "AAAA"
+    alias {
+        name                   = module.cloudfront.distribution_domain_name
+        zone_id                = module.cloudfront.hosted_zone_id
+        evaluate_target_health = false
+    }
 }

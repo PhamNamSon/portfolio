@@ -33,3 +33,17 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
         }
     }
 }
+
+data "aws_caller_identity" "current" {}
+data "aws_partition" "current" {}
+
+resource "aws_s3_bucket_policy" "oac" {
+    bucket = aws_s3_bucket.site.id
+    policy = templatefile("${path.module}/policy.json", {
+        bucket_arn      = aws_s3_bucket.site.arn
+        distribution_id = var.cloudfront_distribution_id
+        account_id      = data.aws_caller_identity.current.account_id
+        partition       = data.aws_partition.current.partition
+    })
+}
+

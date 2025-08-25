@@ -6,6 +6,15 @@ resource "aws_cloudfront_origin_access_control" "oac" {
     signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_function" "redirect_www_to_apex" {
+    name    = "namson-io-www-to-apex"
+    runtime = "cloudfront-js-1.0"
+    publish = true
+    comment = "Redirect www to apex"
+    code    = file("${path.module}/redirect-www-to-apex.js")
+}
+
+
 resource "aws_cloudfront_distribution" "this" {
     enabled             = true
     is_ipv6_enabled     = true
@@ -36,6 +45,11 @@ resource "aws_cloudfront_distribution" "this" {
             query_string = false
             headers      = []
             cookies { forward = "none" }
+        }
+
+        function_association {
+            event_type   = "viewer-request"
+            function_arn = aws_cloudfront_function.redirect_www_to_apex.arn
         }
 
         min_ttl                = 0
