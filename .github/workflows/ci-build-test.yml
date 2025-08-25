@@ -111,7 +111,6 @@ jobs:
                 uses: Cyb3r-Jak3/html5validator-action@v7.2.0
                 with:
                     root: app
-                    match: '.*\.html'
 
             -   name: Clean up container
                 if: always()
