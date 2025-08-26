@@ -47,12 +47,11 @@ jobs:
                 run: |
                     aws s3 sync ./app "s3://${S3_BUCKET}" \
                     --delete \
-                    --exclude "Dockerfile" \
-                    --exclude "nginx.conf" \
                     --exclude "*" \
                     --include "*.css" \
                     --include "*.js" \
                     --include "assets/*" \
+                    --exclude "assets/namson_resume.pdf" \
                     --cache-control "public,max-age=31536000,immutable" \
                     --metadata-directive REPLACE
 
@@ -66,6 +65,15 @@ jobs:
                         --cache-control "no-store, max-age=0" \
                         --metadata-directive REPLACE
                     done
+            
+            -   name: Upload resume with no-cache
+                run: |
+                    if [ -f app/assets/namson_resume.pdf ]; then
+                        aws s3 cp app/assets/namson_resume.pdf "s3://${S3_BUCKET}/assets/namson_resume.pdf" \
+                        --cache-control "no-store, max-age=0" \
+                        --content-type "application/pdf" \
+                        --metadata-directive REPLACE
+                    fi
 
             -   name: Verify key pages exist
                 run: |
@@ -75,6 +83,6 @@ jobs:
             -   name: Create CloudFront invalidation
                 run: |
                     aws cloudfront create-invalidation \
-                    --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
-                    --paths "/*" >/dev/null
+                        --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
+                        --paths "/" "/*.html" "/assets/namson_resume.pdf"
                     echo "✅ Invalidation requested"
