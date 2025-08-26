@@ -22,24 +22,7 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
-    should-deploy:
-        runs-on: ubuntu-latest
-        outputs:
-            deploy: ${{ steps.check.outputs.deploy }}
-        steps:
-            -   id: check
-                run: |
-                    deploy=false
-                    if [ "${{ github.event_name }}" = "push" ]; then
-                        deploy=true
-                    elif [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.merged }}" = "true" ]; then
-                        deploy=true
-                    fi
-                    echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
-    
     deploy:
-        needs: [should-deploy]
-        if: needs.should-deploy.outputs.deploy == 'true'
         runs-on: ubuntu-latest
 
         env:
