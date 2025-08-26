@@ -1,0 +1,97 @@
+name: CD push site to S3
+
+on:
+    push:
+        branches: [ main ]
+        paths:
+        - "app/**"
+        - ".github/workflows/cd-s3-deploy.yml"
+    pull_request:
+        branches: [ main ]
+        types: [closed]
+        paths:
+        - "app/**"
+    workflow_dispatch:
+
+permissions:
+    id-token: write
+    contents: read
+
+concurrency:
+    group: cd-s3-deploy
+    cancel-in-progress: false
+
+jobs:
+    should-deploy:
+        runs-on: ubuntu-latest
+        outputs:
+            deploy: ${{ steps.check.outputs.deploy }}
+        steps:
+            -   id: check
+                run: |
+                    deploy=false
+                    if [ "${{ github.event_name }}" = "push" ]; then
+                        deploy=true
+                    elif [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+                        deploy=true
+                    fi
+                    echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
+    
+    deploy:
+        needs: [should-deploy]
+        if: needs.should-deploy.outputs.deploy == 'true'
+        runs-on: ubuntu-latest
+
+        env:
+            AWS_REGION: ${{ secrets.AWS_REGION }}
+            S3_BUCKET: ${{ secrets.S3_BUCKET }}
+            CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+    
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v5
+
+            -   name: Configure AWS Credentials
+                uses: aws-actions/configure-aws-credentials@v4.3.1
+                with:
+                    aws-region: ${{ env.AWS_REGION }}
+                    role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+            
+            -   name: Install AWS CLI
+                uses: unfor19/install-aws-cli-action@v1
+            
+            -   name: Upload assets with long cache
+                run: |
+                    aws s3 sync ./app "s3://${S3_BUCKET}" \
+                    --delete \
+                    --exclude "Dockerfile" \
+                    --exclude "nginx.conf" \
+                    --exclude "*" \
+                    --include "*.css" \
+                    --include "*.js" \
+                    --include "assets/*" \
+                    --cache-control "public,max-age=31536000,immutable" \
+                    --metadata-directive REPLACE
+
+            -   name: Upload HTML with no-cache
+                shell: bash
+                run: |
+                    shopt -s globstar nullglob
+                    for f in app/*.html; do
+                    key="${f#app/}"
+                    aws s3 cp "$f" "s3://${S3_BUCKET}/${key}" \
+                        --cache-control "no-store, max-age=0" \
+                        --metadata-directive REPLACE
+                    done
+
+            -   name: Verify key pages exist
+                run: |
+                    aws s3 ls "s3://${S3_BUCKET}/index.html" >/dev/null
+                    aws s3 ls "s3://${S3_BUCKET}/404.html" >/dev/null
+            
+            -   name: Create CloudFront invalidation
+                run: |
+                    aws cloudfront create-invalidation \
+                    --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
+                    --paths "/*" >/dev/null
+                    echo "✅ Invalidation requested"
