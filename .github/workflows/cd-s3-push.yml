@@ -1,6 +1,11 @@
 name: CD push site to S3
 
 on:
+    push:
+        branches: [ main ]
+        paths:
+        - "app/**"
+        - ".github/workflows/cd-s3-deploy.yml"
     workflow_dispatch:
 
 permissions:
@@ -13,6 +18,7 @@ concurrency:
 
 jobs:
     deploy:
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
         runs-on: ubuntu-latest
 
         env:
