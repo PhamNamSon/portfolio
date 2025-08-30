@@ -43,10 +43,11 @@ jobs:
                     docker run --rm -e WEB_ROOT="${WEB_ROOT}" "$IMAGE_NAME:ci" sh -eu -c '
                     test -f "$WEB_ROOT/index.html"
                     test -f "$WEB_ROOT/404.html"
-                    test -f "$WEB_ROOT/mediaqueries.css"
+                    ls "$WEB_ROOT"/mediaqueries*.css >/dev/null 2>&1
                     test -f "$WEB_ROOT/app.js"
                     test -f /etc/nginx/nginx.conf
-                    test -f "$WEB_ROOT/styles.css"'
+                    ls "$WEB_ROOT"/styles*.css >/dev/null 2>&1
+                    '
 
             -   name: Nginx syntax check
                 run: |
