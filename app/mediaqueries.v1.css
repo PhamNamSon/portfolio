@@ -63,6 +63,23 @@
     }
 }
 
+@media screen and (max-width: 800px) {
+    .project_details_container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project_container {
+        flex: 1;
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .diagrams_container img {
+        max-width: 100%;
+    }
+}
+
 @media screen and (max-width: 600px) {
     #contact,
     footer {
