@@ -1,16 +1,6 @@
 name: CD push site to S3
 
 on:
-    push:
-        branches: [ main ]
-        paths:
-        - "app/**"
-        - ".github/workflows/cd-s3-deploy.yml"
-    pull_request:
-        branches: [ main ]
-        types: [closed]
-        paths:
-        - "app/**"
     workflow_dispatch:
 
 permissions:
