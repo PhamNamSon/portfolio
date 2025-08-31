@@ -1,3 +1,8 @@
+data "aws_route53_zone" "root" {
+    name         = "${var.root_domain}."
+    private_zone = false
+}
+
 resource "aws_route53_record" "root_a" {
     zone_id = data.aws_route53_zone.root.zone_id
     name    = var.root_domain
@@ -31,6 +36,16 @@ resource "aws_route53_record" "www_a" {
     }
 }
 
+resource "aws_route53_record" "www_aaaa" {
+    zone_id = data.aws_route53_zone.root.zone_id
+    name    = "www.${var.root_domain}"
+    type    = "AAAA"
+    alias {
+        name                   = var.alias_name
+        zone_id                = var.alias_zone_id
+        evaluate_target_health = false
+    }
+}
 
 resource "aws_route53_record" "validation" {
     for_each = {

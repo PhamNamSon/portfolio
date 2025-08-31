@@ -21,6 +21,17 @@ resource "aws_acm_certificate" "site" {
     }
 }
 
+module "cloudfront" {
+    source = "../modules/cloudfront"
+
+    bucket_name         = var.bucket_name
+    s3_region           = var.region
+    domain_name         = var.root_domain
+    acm_certificate_arn = aws_acm_certificate.site.arn
+
+    depends_on = [aws_acm_certificate_validation.site]
+}
+
 module "dns" {
     source      = "../modules/route53"
     root_domain = var.root_domain
@@ -37,13 +48,4 @@ resource "aws_acm_certificate_validation" "site" {
     validation_record_fqdns = module.dns.validation_record_fqdns
 }
 
-module "cloudfront" {
-    source = "../modules/cloudfront"
 
-    bucket_name         = var.bucket_name
-    s3_region           = var.region
-    domain_name         = var.root_domain
-    acm_certificate_arn = aws_acm_certificate.site.arn
-
-    depends_on = [aws_acm_certificate_validation.site]
-}
