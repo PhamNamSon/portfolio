@@ -21,27 +21,20 @@ resource "aws_acm_certificate" "site" {
     }
 }
 
-resource "aws_route53_record" "validation" {
-    for_each = {
-        for dvo in aws_acm_certificate.site.domain_validation_options :
-        dvo.domain_name => {
-            name  = dvo.resource_record_name
-            type  = dvo.resource_record_type
-            value = dvo.resource_record_value
-        }
-    }
+module "dns" {
+    source      = "../modules/route53"
+    root_domain = var.root_domain
 
-    zone_id = data.aws_route53_zone.root.zone_id
-    name    = each.value.name
-    type    = each.value.type
-    ttl     = 60
-    records = [each.value.value]
+    alias_name    = module.cloudfront.distribution_domain_name
+    alias_zone_id = module.cloudfront.hosted_zone_id
+
+    acm_domain_validation_options = aws_acm_certificate.site.domain_validation_options
 }
 
 resource "aws_acm_certificate_validation" "site" {
     provider                = aws.us_east_1
     certificate_arn         = aws_acm_certificate.site.arn
-    validation_record_fqdns = [for r in aws_route53_record.validation : r.fqdn]
+    validation_record_fqdns = module.dns.validation_record_fqdns
 }
 
 module "cloudfront" {
@@ -53,48 +46,4 @@ module "cloudfront" {
     acm_certificate_arn = aws_acm_certificate.site.arn
 
     depends_on = [aws_acm_certificate_validation.site]
-}
-
-resource "aws_route53_record" "root_a" {
-    zone_id = data.aws_route53_zone.root.zone_id
-    name    = var.root_domain
-    type    = "A"
-    alias {
-        name                   = module.cloudfront.distribution_domain_name
-        zone_id                = module.cloudfront.hosted_zone_id
-        evaluate_target_health = false
-    }
-}
-
-resource "aws_route53_record" "root_aaaa" {
-    zone_id = data.aws_route53_zone.root.zone_id
-    name    = var.root_domain
-    type    = "AAAA"
-    alias {
-        name                   = module.cloudfront.distribution_domain_name
-        zone_id                = module.cloudfront.hosted_zone_id
-        evaluate_target_health = false
-    }
-}
-
-resource "aws_route53_record" "www_a" {
-    zone_id = data.aws_route53_zone.root.zone_id
-    name    = "www.${var.root_domain}"
-    type    = "A"
-    alias {
-        name                   = module.cloudfront.distribution_domain_name
-        zone_id                = module.cloudfront.hosted_zone_id
-        evaluate_target_health = false
-    }
-}
-
-resource "aws_route53_record" "www_aaaa" {
-    zone_id = data.aws_route53_zone.root.zone_id
-    name    = "www.${var.root_domain}"
-    type    = "AAAA"
-    alias {
-        name                   = module.cloudfront.distribution_domain_name
-        zone_id                = module.cloudfront.hosted_zone_id
-        evaluate_target_health = false
-    }
 }
