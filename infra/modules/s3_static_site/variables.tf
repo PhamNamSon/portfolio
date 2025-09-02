@@ -1,9 +1,9 @@
 variable "bucket_name" {
-    type        = string
-    description = "Exact S3 bucket name to create"
+  type        = string
+  description = "Exact S3 bucket name to create"
 }
 
 variable "cloudfront_distribution_id" {
-    type        = string
-    description = "CloudFront distribution ID for OAC"
+  type        = string
+  description = "CloudFront distribution ID for OAC"
 }

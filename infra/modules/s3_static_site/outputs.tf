@@ -1,7 +1,7 @@
 output "bucket_name" {
-    value = aws_s3_bucket.site.bucket
+  value = aws_s3_bucket.site.bucket
 }
 
 output "bucket_arn" {
-    value = aws_s3_bucket.site.arn
+  value = aws_s3_bucket.site.arn
 }

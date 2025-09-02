@@ -1,49 +1,49 @@
 resource "aws_s3_bucket" "site" {
-    bucket = var.bucket_name
-    force_destroy = false
+  bucket        = var.bucket_name
+  force_destroy = false
 }
 
 resource "aws_s3_bucket_ownership_controls" "this" {
-    bucket = aws_s3_bucket.site.id
-    rule {
-        object_ownership = "BucketOwnerEnforced"
-    }
+  bucket = aws_s3_bucket.site.id
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
-    bucket                  = aws_s3_bucket.site.id
-    block_public_acls       = true
-    block_public_policy     = true
-    ignore_public_acls      = true
-    restrict_public_buckets = true
+  bucket                  = aws_s3_bucket.site.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_versioning" "this" {
-    bucket = aws_s3_bucket.site.id
-    versioning_configuration {
-        status = "Enabled"
-    }
+  bucket = aws_s3_bucket.site.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
-    bucket = aws_s3_bucket.site.id
-    rule {
-        apply_server_side_encryption_by_default {
-            sse_algorithm = "AES256"
-        }
+  bucket = aws_s3_bucket.site.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
+  }
 }
 
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_s3_bucket_policy" "oac" {
-    bucket = aws_s3_bucket.site.id
-    policy = templatefile("${path.module}/policy.json", {
-        bucket_arn      = aws_s3_bucket.site.arn
-        distribution_id = var.cloudfront_distribution_id
-        account_id      = data.aws_caller_identity.current.account_id
-        partition       = data.aws_partition.current.partition
-    })
+  bucket = aws_s3_bucket.site.id
+  policy = templatefile("${path.module}/policy.json", {
+    bucket_arn      = aws_s3_bucket.site.arn
+    distribution_id = var.cloudfront_distribution_id
+    account_id      = data.aws_caller_identity.current.account_id
+    partition       = data.aws_partition.current.partition
+  })
 }
 
