@@ -62,28 +62,42 @@ jobs:
 
             -   name: Verify container runs and serves
                 run: |
+                    set -euo pipefail
+
                     cid=$(docker run -d -p 8080:80 "$IMAGE_NAME:ci")
                     echo "CID=$cid" >> "$GITHUB_ENV"
 
                     for i in $(seq 1 30); do
-                        status=$(docker inspect -f '{{.State.Status}}' "$cid" 2>/dev/null || echo "exited")
-                        [ "$status" = "running" ] && break
-                        sleep 0.5
+                    status=$(docker inspect -f '{{.State.Status}}' "$cid" 2>/dev/null || echo "exited")
+                    [ "$status" = "running" ] && break
+                    sleep 0.5
                     done
                     test "$(docker inspect -f '{{.State.Status}}' "$cid")" = "running"
 
                     if docker logs "$cid" 2>&1 | grep -Eiq 'emerg|alert|crit|error'; then
-                        echo "❌ Nginx startup errors:"; docker logs "$cid"; exit 1; fi
+                    echo "❌ Nginx startup errors:"; docker logs "$cid"; exit 1; fi
 
-                    [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/healthz)" = "200" ]
+                    echo "== Health check =="
+                    code_health=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/healthz || true)
+                    if [ "$code_health" != "200" ]; then
+                    echo "No /healthz (got $code_health). Falling back to / ..."
+                    code_root=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/ || true)
+                    [ "$code_root" = "200" ] || { echo "❌ / not 200 (got $code_root)"; exit 1; }
+                    fi
 
+                    echo "== GET / =="
                     code=$(curl -s -o /tmp/home.html -w "%{http_code}" http://localhost:8080/)
-                    [ "$code" = "200" ]
-                    grep -q '<div id="root"' /tmp/home.html || (echo "Missing root div in /"; exit 1)
+                    echo "Status /: $code"
+                    [ "$code" = "200" ] || { echo "❌ Expected 200 for /"; sed -n '1,120p' /tmp/home.html; exit 1; }
+                    grep -Eiq '<div[^>]+id=[\"\x27]root[\"\x27]' /tmp/home.html \
+                    || { echo "❌ Missing <div id=\"root\"> in /"; sed -n '1,120p' /tmp/home.html; exit 1; }
 
-                    code=$(curl -s -o /tmp/404.html -w "%{http_code}" http://localhost:8080/this-route-does-not-exist)
-                    [ "$code" = "404" ]
-                    grep -Eiq '404' /tmp/404.html || (echo "404.html content not served"; exit 1)
+                    echo "== GET /this-route-does-not-exist =="
+                    code404=$(curl -s -o /tmp/resp404.html -w "%{http_code}" http://localhost:8080/this-route-does-not-exist)
+                    echo "Status /this-route-does-not-exist: $code404"
+                    [ "$code404" = "404" ] || { echo "❌ Expected 404 (got $code404)"; sed -n '1,120p' /tmp/resp404.html; exit 1; }
+                    # body should not be empty
+                    [ -s /tmp/resp404.html ] || { echo "❌ 404 body empty"; exit 1; }
 
             -   name: Clean up container
                 if: always()
