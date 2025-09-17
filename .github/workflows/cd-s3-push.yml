@@ -38,34 +38,45 @@ jobs:
             
             -   name: Install AWS CLI
                 uses: unfor19/install-aws-cli-action@v1
-            
-            -   name: Upload assets with long cache
+                
+            -   name: Setup Node
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '22'
+
+            -   name: Install deps
+                working-directory: app
+                run: npm ci
+
+            -   name: Build
+                working-directory: app
+                run: npm run build
+
+            -   name: Upload versioned assets with long cache
                 run: |
-                    aws s3 sync ./app "s3://${S3_BUCKET}" \
-                    --delete \
-                    --exclude "*" \
-                    --include "*.css" \
-                    --include "*.js" \
-                    --include "assets/*" \
-                    --exclude "assets/namson_resume.pdf" \
-                    --cache-control "public,max-age=31536000,immutable" \
-                    --metadata-directive REPLACE
+                    aws s3 sync ./app/dist "s3://${S3_BUCKET}" \
+                        --delete \
+                        --exclude "*" \
+                        --include "assets/*" \
+                        --cache-control "public,max-age=31536000,immutable" \
+                        --metadata-directive REPLACE
 
             -   name: Upload HTML with no-cache
                 shell: bash
                 run: |
-                    shopt -s globstar nullglob
-                    for f in app/*.html; do
-                    key="${f#app/}"
-                    aws s3 cp "$f" "s3://${S3_BUCKET}/${key}" \
+                    shopt -s nullglob
+                    for f in app/dist/*.html; do
+                        key="$(basename "$f")"
+                        aws s3 cp "$f" "s3://${S3_BUCKET}/${key}" \
                         --cache-control "no-store, max-age=0" \
+                        --content-type "text/html; charset=utf-8" \
                         --metadata-directive REPLACE
                     done
             
             -   name: Upload resume with no-cache
                 run: |
-                    if [ -f app/assets/namson_resume.pdf ]; then
-                        aws s3 cp app/assets/namson_resume.pdf "s3://${S3_BUCKET}/assets/namson_resume.pdf" \
+                    if [ -f app/dist/assets/namson_resume.pdf ]; then
+                        aws s3 cp app/dist/assets/namson_resume.pdf "s3://${S3_BUCKET}/assets/namson_resume.pdf" \
                         --cache-control "no-store, max-age=0" \
                         --content-type "application/pdf" \
                         --metadata-directive REPLACE
