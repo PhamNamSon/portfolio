@@ -1,0 +1,9 @@
+app/node_modules
+app/dist
+.git
+.gitignore
+.github
+**/*.log
+README.md
+app.delete
+infra
