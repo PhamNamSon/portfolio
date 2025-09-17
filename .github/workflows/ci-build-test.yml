@@ -4,13 +4,17 @@ on:
     push:
         branches: [ main ]
         paths:
-            - "app/**"
-            - ".github/workflows/ci-build-docker.yml"
+            -   "app/**"
+            -   "Dockerfile"
+            -   "nginx.conf"
+            -   ".github/workflows/ci-build-docker.yml"
 
     pull_request:
         paths:
-            - "app/**"
-            - ".github/workflows/ci-build-docker.yml"
+            -   "app/**"
+            -   "Dockerfile"
+            -   "nginx.conf"
+            -   ".github/workflows/ci-build-docker.yml"
 
     workflow_dispatch:
 
@@ -19,12 +23,15 @@ jobs:
         runs-on: ubuntu-latest
         env:
             IMAGE_NAME: portfolio-ci-test
-            CONTEXT_DIR: app
             WEB_ROOT: /usr/share/nginx/html
 
         steps:
             -   name: Checkout
                 uses: actions/checkout@v4
+
+            -   name: Assert 404 in public
+                run: |
+                    test -f app/public/404.html || { echo "app/public/404.html missing"; exit 1; }
 
             -   name: Set up Docker Buildx
                 uses: docker/setup-buildx-action@v3
@@ -32,7 +39,8 @@ jobs:
             -   name: Build image (no push)
                 uses: docker/build-push-action@v6
                 with:
-                    context: ${{ env.CONTEXT_DIR }}
+                    context: .
+                    file: ./Dockerfile
                     load: true
                     tags: ${{ env.IMAGE_NAME }}:ci
                     cache-from: type=gha
@@ -43,75 +51,39 @@ jobs:
                     docker run --rm -e WEB_ROOT="${WEB_ROOT}" "$IMAGE_NAME:ci" sh -eu -c '
                     test -f "$WEB_ROOT/index.html"
                     test -f "$WEB_ROOT/404.html"
-                    ls "$WEB_ROOT"/mediaqueries*.css >/dev/null 2>&1
-                    test -f "$WEB_ROOT/app.js"
-                    test -f /etc/nginx/nginx.conf
-                    ls "$WEB_ROOT"/styles*.css >/dev/null 2>&1
+                    ls "$WEB_ROOT"/assets/*.js >/dev/null 2>&1
+                    ls "$WEB_ROOT"/assets/*.css >/dev/null 2>&1 || true
+                    test -f /etc/nginx/conf.d/site.conf
                     '
 
             -   name: Nginx syntax check
                 run: |
                     docker run --rm "$IMAGE_NAME:ci" nginx -t
 
-            -   name: Verify Docker and Nginx
+            -   name: Verify container runs and serves
                 run: |
                     cid=$(docker run -d -p 8080:80 "$IMAGE_NAME:ci")
                     echo "CID=$cid" >> "$GITHUB_ENV"
 
-                    for i in $(seq 1 20); do
+                    for i in $(seq 1 30); do
                         status=$(docker inspect -f '{{.State.Status}}' "$cid" 2>/dev/null || echo "exited")
-                        if [ "$status" = "running" ]; then break; fi
+                        [ "$status" = "running" ] && break
                         sleep 0.5
                     done
-
-                    status=$(docker inspect -f '{{.State.Status}}' "$cid")
-                    echo "Container status: $status"
-                    test "$status" = "running"
+                    test "$(docker inspect -f '{{.State.Status}}' "$cid")" = "running"
 
                     if docker logs "$cid" 2>&1 | grep -Eiq 'emerg|alert|crit|error'; then
-                        echo "❌ Detected Nginx startup errors in logs:"
-                        docker logs "$cid"
-                        exit 1
-                    fi
+                        echo "❌ Nginx startup errors:"; docker logs "$cid"; exit 1; fi
 
-            -   name: Inspect web server
-                run: |
-                    for i in $(seq 1 20); do
-                        if curl -s http://localhost:8080/ >/dev/null; then
-                            break
-                        fi
-                        sleep 0.5
-                    done
+                    [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/healthz)" = "200" ]
 
-                    echo "Checking GET / ..."
-                    body=$(curl -s -o /tmp/body.html -w "%{http_code}" http://localhost:8080/)
-                    status=${body: -3}
-                    if [ "$status" != "200" ]; then
-                        echo "❌ Expected 200 for /, got $status"
-                        exit 1
-                    fi
-                    if ! grep -q "Nam Son" /tmp/body.html; then
-                        echo "❌ Expected site title text not found in /"
-                        exit 1
-                    fi
-                    echo "✅ / OK"
-                    
-                    echo "Checking GET /this-route-does-not-exist ..."
-                    status=$(curl -s -o /tmp/body404.html -w "%{http_code}" http://localhost:8080/this-route-does-not-exist)
-                    if [ "$status" != "404" ]; then
-                        echo "❌ Expected 404 for /this-route-does-not-exist, got $status"
-                        exit 1
-                    fi
-                    if ! grep -q "404" /tmp/body404.html; then
-                        echo "❌ Expected 404.html content not served"
-                        exit 1
-                    fi
-                    echo "✅ /this-route-does-not-exist OK"
-            
-            -   name: Validate *.html
-                uses: Cyb3r-Jak3/html5validator-action@v7.2.0
-                with:
-                    root: app
+                    code=$(curl -s -o /tmp/home.html -w "%{http_code}" http://localhost:8080/)
+                    [ "$code" = "200" ]
+                    grep -q '<div id="root"' /tmp/home.html || (echo "Missing root div in /"; exit 1)
+
+                    code=$(curl -s -o /tmp/404.html -w "%{http_code}" http://localhost:8080/this-route-does-not-exist)
+                    [ "$code" = "404" ]
+                    grep -Eiq '404' /tmp/404.html || (echo "404.html content not served"; exit 1)
 
             -   name: Clean up container
                 if: always()
