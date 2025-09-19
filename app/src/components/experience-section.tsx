@@ -4,7 +4,7 @@ import { Project } from "@/components/project";
 import { Internship } from "@/components/internship";
 import { X } from "lucide-react";
 
-type Project = {
+type Experience = {
   id: number;
   title: string;
   description: string;
@@ -14,7 +14,7 @@ type Project = {
   details?: ReactNode;
 };
 
-const projects : Project[] = [
+const experiences: Experience[] = [
   {
     id: 1,
     title: "Cloud Infrastructure Project",
@@ -58,12 +58,12 @@ function ModalBox({ onClose, children }: { onClose: () => void, children: ReactN
   );
 }
 
-export const ProjectsSection = () => {
+export const ExperienceSection = () => {
   const [openId, setOpenId] = useState<number | null>(null);
-  const openProject = projects.find((project) => project.id === openId);
+  const openExperience = experiences.find((experience) => experience.id === openId);
 
   return (
-    <section id="projects" className="py-24 px-4 relative">
+    <section id="experience" className="py-24 px-4 relative">
       {/* <div className="container mx-auto max-w-5xl"> */}
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
@@ -76,25 +76,25 @@ export const ProjectsSection = () => {
 
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <div key={project.id} className="group bg-card rounded-lg overflow-hidden shadow-xs">
+          {experiences.map((experience) => (
+            <div key={experience.id} className="group bg-card rounded-lg overflow-hidden shadow-xs">
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={project.imageUrl}
-                  alt={project.title}
+                  src={experience.imageUrl}
+                  alt={experience.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
 
-                {project.duration && (
+                {experience.duration && (
                   <span className={"absolute top-2 right-2 text-xs font-medium px-2 py-1 rounded-md bg-primary/50 text-primary-foreground"}>
-                    {project.duration}
+                    {experience.duration}
                   </span>
                 )}
               </div>
 
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
+                  {experience.tags.map((tag) => (
                     <span className="px-2 py-1 text-xs font-medium border rounded-full bg-primary/20">
                       {tag}
                     </span>
@@ -102,12 +102,12 @@ export const ProjectsSection = () => {
                 </div>
               </div>
 
-              <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
+              <h3 className="text-xl font-semibold mb-1">{experience.title}</h3>
 
-              <p className="text-sm mb-4">{project.description}</p>
+              <p className="text-sm mb-4">{experience.description}</p>
 
               <div className="flex justify-between items-center px-4">
-                <button className="cosmic-button mb-4" onClick={() => setOpenId(project.id)}>View Details</button>
+                <button className="cosmic-button mb-4" onClick={() => setOpenId(experience.id)}>View Details</button>
               </div>
             </div>
           ))}
@@ -115,7 +115,7 @@ export const ProjectsSection = () => {
 
         {openId && (
           <ModalBox onClose={() => setOpenId(null)}>
-            {openProject?.details}
+            {openExperience?.details}
           </ModalBox>
         )}
       </div>
