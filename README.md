@@ -1,22 +1,23 @@
 # Portfolio Website – Nam Son
 
 ## 🌐 Overview
-This repository contains my personal **portfolio website** built with **vanilla HTML, CSS, and JavaScript**, packaged in Docker for consistent local and cloud deployment.  
+This repository contains my personal **portfolio website** built with **React and Tailwind CSS**, packaged in Docker for consistent local and cloud deployment.  
 
-Beyond the static website, this project is also a **cloud infrastructure showcase**, demonstrating skills in **AWS, Terraform, and CI/CD automation with GitHub Actions**.
+Beyond the website, this project is also a **cloud infrastructure showcase**, demonstrating skills in **AWS, Terraform, and CI/CD automation with GitHub Actions**.
 
 👉 [Live Site](https://namson.io)  
 
 ---
 
 ## 🖥️ Frontend
-- **Stack**: HTML5, CSS3, JavaScript (no frameworks).
-- **Design**: Responsive with custom CSS and media queries.
-- **Deployment**: Packaged inside Docker for portability.
-- **Features**:
-  - Profile, About, Skills, Project, Experience, and Contact sections.
-  - Resume download button.
-  - Responsive navbar with hamburger menu.
+- **Stack**: React, TypeScript, Tailwind CSS.  
+- **Design**: Responsive, animated UI with reusable components.  
+- **Deployment**: Packaged inside Docker for portability.  
+- **Features**:  
+  - Profile, About, Skills, Project, Experience, and Contact sections.  
+  - Resume download button.  
+  - Responsive navbar with hamburger menu.  
+  - Secure contact form integrated with **AWS SES** for email delivery. 
 
 ---
 
@@ -24,7 +25,7 @@ Beyond the static website, this project is also a **cloud infrastructure showcas
 I designed two deployment environments to practice **different AWS hosting strategies**:
 
 ### 1. EC2 Hosting (Full Infra Management)
-![EC2 Setup](app/assets/EC2.svg)
+![EC2 Setup](app/public/EC2.svg)
 
 - **Dockerized App** running on EC2.  
 - **VPC** with private subnets across two Availability Zones.  
@@ -37,7 +38,7 @@ I designed two deployment environments to practice **different AWS hosting strat
 ---
 
 ### 2. S3 + CloudFront Hosting (Optimized for Static Sites)
-![S3 Setup](app/assets/S3.svg)
+![S3 Setup](app/public/S3.svg)
 
 - **S3 bucket** with OAC (no public access).  
 - **CloudFront** for global CDN, SSL termination, and caching.  
@@ -46,6 +47,17 @@ I designed two deployment environments to practice **different AWS hosting strat
 - **Terraform** provisions everything with state in S3.  
 
 > This setup is my **production hosting solution**, chosen for cost efficiency and scalability.
+
+---
+
+### 3. Contact Form Email Flow (AWS Lambda + SES)
+
+- **AWS SES** for reliable email delivery from the contact form.  
+- **AWS Lambda** function processes form submissions securely before forwarding them via SES.  
+- **Validation & monitoring** ensure only valid messages are sent.  
+- Integrated with the React frontend contact form.  
+
+> This setup adds a professional communication channel directly from the site.
 
 ---
 
@@ -66,7 +78,7 @@ This demonstrates **fine-grained automation** instead of monolithic redeploys.
 pipelinesinfra/
 ├─ EC2_prod/ # Terraform config for EC2-based setup
 ├─ S3_prod/ # Terraform config for S3 + CloudFront setup
-└─ modules/ # Shared Terraform modules (VPC, ALB, EC2, S3, CloudFront, Route 53)
+└─ modules/ # Shared Terraform modules (VPC, ALB, EC2, S3, SES, Lambda, CloudFront, Route 53)
 app/
 ├─ index.html # Main website
 ├─ styles.css
@@ -92,7 +104,11 @@ Visit: http://localhost:8080
 
 ## 📖 Lessons Learned
 
+- Migrating from vanilla HTML/CSS/JS to React for better scalability and component reusability.
+
 - Balancing infra-heavy vs cost-efficient setups (EC2 vs S3/CloudFront).
+
+- Integrating AWS SES for reliable email communication from the contact form.
 
 - Managing Terraform state in S3 for collaboration and consistency.
 
