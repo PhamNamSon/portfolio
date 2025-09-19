@@ -104,8 +104,6 @@ Visit: http://localhost:8080
 
 ## 📖 Lessons Learned
 
-- Migrating from vanilla HTML/CSS/JS to React for better scalability and component reusability.
-
 - Balancing infra-heavy vs cost-efficient setups (EC2 vs S3/CloudFront).
 
 - Integrating AWS SES for reliable email communication from the contact form.
