@@ -52,7 +52,7 @@ export const ContactSection = () => {
 
                 <div>
                   <h4 className="font-medium text-left">LinkedIn</h4>
-                  <a href="https://www.linkedin.com/in/nam-son-pham/" className="hover:text-primary hover:underline transition-colors">
+                  <a href="https://www.linkedin.com/in/nam-son-pham/" target="_blank" rel="noreferrer" className="hover:text-primary hover:underline transition-colors">
                     linkedin.com/in/nam-son-pham
                   </a>
                 </div>
