@@ -58,7 +58,7 @@ export const Project = () => {
         </p>
 
         <p>
-          <strong>Static Portfolio with HTML, CSS, and JavaScript</strong> - Built a
+          <strong>Static Portfolio with React</strong> - Built a
           personal portfolio website using a single-page React app styled with
           Tailwind CSS to showcase projects and skills, packaged inside Docker for
           consistent local development and deployment.

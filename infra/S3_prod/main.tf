@@ -48,4 +48,35 @@ resource "aws_acm_certificate_validation" "site" {
   validation_record_fqdns = module.dns.validation_record_fqdns
 }
 
+module "ses" {
+  source        = "../modules/ses"
+  root_domain   = var.root_domain
+  region        = var.region
+}
+
+module "email_lambda" {
+  source         = "../modules/lambda"
+  source_path    = "${path.module}/lambda_src"
+
+  environment = {
+    TO_ADDRESS   = "phamnamson1999+contact@gmail.com"
+    FROM_ADDRESS = "contact@namson.io"
+    AWS_REGION   = var.region
+  }
+
+  inline_policies = [{
+    name   = "ses-send"
+    policy = jsonencode({
+      Version = "2012-10-17",
+      Statement = [{
+        Effect   = "Allow",
+        Action   = ["ses:SendEmail","ses:SendRawEmail"],
+        Resource = "*" 
+      }]
+    })
+  }]
+}
+
+
+
 
