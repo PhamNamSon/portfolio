@@ -12,7 +12,7 @@ export const ContactSection = () => {
           I'm currently open to new opportunities and collaborations. Whether you have a question, a project idea, or just want to say hello, feel free to reach out!
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="max-w-lg mx-auto">
           <div className="space-y-8">
             <h3 className="text-2xl font-semibold mb-6">
               Contact Information
