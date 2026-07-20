@@ -62,7 +62,9 @@ export const AboutSection = () => {
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Certifications</h4>
-                  <p>AWS Solutions Architect - Associate (In Progress)</p>
+                  <p>Certified Kubernetes Administrator</p>
+                  <p>AWS Solutions Architect - Associate</p>
+                  <p>Microsoft Certified: Azure Administrator Associate</p>
                 </div>
               </div>
             </div>

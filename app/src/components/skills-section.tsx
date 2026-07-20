@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 type Skill = {
   name: string;
@@ -19,11 +19,13 @@ const skills: Skill[] = [
   { name: "MySQL", category: "Backend", icon: "mysql.svg" },
   { name: "MongoDB", category: "Backend", icon: "mongodb.svg" },
 
+  { name: "Kubernetes", category: "DevOps and Cloud", icon: "kubernetes.svg" },
   { name: "Docker", category: "DevOps and Cloud", icon: "docker.svg" },
   { name: "GitHub Actions", category: "DevOps and Cloud", icon: "github-actions.svg" },
   { name: "GitLab CI/CD", category: "DevOps and Cloud", icon: "gitlab.svg" },
   { name: "Terraform", category: "DevOps and Cloud", icon: "terraform.svg" },
   { name: "AWS", category: "DevOps and Cloud", icon: "aws.svg" },
+  { name: "Azure", category: "DevOps and Cloud", icon: "azure.svg" },
 ];
 
 export const SkillsSection = () => {
