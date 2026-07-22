@@ -9,54 +9,45 @@ export const ContactSection = () => {
         </h2>
 
         <p className="text-center mb-12 max-w-2xl mx-auto">
-          I'm currently open to new opportunities and collaborations. Whether you have a question, a project idea, or just want to say hello, feel free to reach out!
+          I'm currently open to new opportunities and collaborations. Whether you
+          have a question, a project idea, or just want to say hello, feel free to
+          reach out!
         </p>
 
-        <div className="max-w-lg mx-auto">
-          <div className="space-y-8">
-            <h3 className="text-2xl font-semibold mb-6">
-              Contact Information
-            </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="flex flex-col items-center gap-4 p-6 rounded-lg gradient-border card-hover">
+            <div className="p-3 rounded-full bg-primary/10">
+              <Mail className="w-6 h-6 text-primary" />
+            </div>
+            <div className="text-center">
+              <h4 className="font-semibold mb-1">Email</h4>
+              <a href="mailto:..." className="text-sm hover:text-primary hover:underline">
+                phamnamson1999@gmail.com
+              </a>
+            </div>
+          </div>
 
-            <div className="space-y-6 justify-center">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
+          <div className="flex flex-col items-center gap-4 p-6 rounded-lg gradient-border card-hover">
+            <div className="p-3 rounded-full bg-primary/10">
+              <Phone className="w-6 h-6 text-primary" />
+            </div>
+            <div className="text-center">
+              <h4 className="font-semibold mb-1">Phone</h4>
+              <a href="tel:..." className="text-sm hover:text-primary hover:underline">
+                578-974-3105
+              </a>
+            </div>
+          </div>
 
-                <div>
-                  <h4 className="font-medium text-left">Email</h4>
-                  <a href="mailto:phamnamson1999@gmail.com" className="hover:text-primary hover:underline transition-colors">
-                    phamnamson1999@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-
-                <div>
-                  <h4 className="font-medium text-left">Phone</h4>
-                  <a href="tel:5789743105" className="hover:text-primary hover:underline transition-colors">
-                    578-974-3105
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Linkedin className="w-6 h-6 text-primary" />
-                </div>
-
-                <div>
-                  <h4 className="font-medium text-left">LinkedIn</h4>
-                  <a href="https://www.linkedin.com/in/nam-son-pham/" target="_blank" rel="noreferrer" className="hover:text-primary hover:underline transition-colors">
-                    linkedin.com/in/nam-son-pham
-                  </a>
-                </div>
-              </div>
+          <div className="flex flex-col items-center gap-4 p-6 rounded-lg gradient-border card-hover">
+            <div className="p-3 rounded-full bg-primary/10">
+              <Linkedin className="w-6 h-6 text-primary" />
+            </div>
+            <div className="text-center">
+              <h4 className="font-semibold mb-1">LinkedIn</h4>
+              <a href="..." className="text-sm hover:text-primary hover:underline">
+                linkedin.com/in/nam-son-pham
+              </a>
             </div>
           </div>
         </div>
