@@ -13,44 +13,39 @@ export const Internship = () => {
 
       <div className="space-y-4 text-[1.05rem] leading-relaxed">
         <p>
-          During my experience working on enterprise telecom applications, I
-          applied modern DevOps practices by containerizing applications with
-          Docker and setting up automated CI/CD pipelines using GitLab CI/CD.
-          This greatly streamlined deployment and testing processes, reducing
-          manual work and improving release efficiency.
+          Gained experience working on enterprise telecom applications with a focus on
+          modern DevOps practices. Containerized applications with Docker and set up
+          automated CI/CD pipelines using GitLab CI/CD, streamlining deployment and
+          testing processes while reducing manual work and improving release
+          efficiency.
         </p>
 
         <p>
-          On the backend side, I developed and maintained APIs using Python and
-          FastAPI. These APIs supported critical enterprise functions such as
-          data processing, reporting services, and internal system integrations.
-          A key part of this work involved ensuring that the services were
-          secure, reliable, and production-ready, allowing the business to
-          confidently scale its systems.
+          Developed and maintained backend APIs using Python and FastAPI to support
+          critical enterprise functions such as data processing, reporting services,
+          and system integrations. Ensured that services were secure, reliable, and
+          production-ready, enabling the business to scale its systems confidently.
         </p>
 
         <p>
-          I also contributed to database design and query optimization with
-          PostgreSQL, where I improved data access speed and system reliability.
-          This work involved analyzing query performance and working with senior
-          engineers to refine schema design.
+          Contributed to database design and query optimization with PostgreSQL,
+          improving data access speed and system reliability. Responsibilities
+          included analyzing query performance and collaborating with senior engineers
+          to refine schema design.
         </p>
 
         <p>
-          Beyond coding, I actively participated in the software development
-          lifecycle by collaborating with senior engineers on system design,
-          testing new features, and engaging in peer code reviews. These reviews
-          not only improved the overall quality of the platform but also gave me
-          valuable exposure to professional engineering standards.
+          Participated actively in the software development lifecycle by assisting in
+          system design, testing new features, and engaging in peer code reviews.
+          Helped improve overall platform quality while gaining exposure to
+          professional engineering standards.
         </p>
 
         <p>
-          Collaboration was a central part of this role — I worked closely with
-          developers, QA engineers, and business analysts to resolve issues,
-          align on requirements, and ensure that deliverables met both technical
-          and business needs. Through this teamwork, I strengthened my
-          communication and problem-solving skills in a professional
-          environment.
+          Collaborated closely with developers, QA engineers, and business analysts to
+          resolve issues, align on requirements, and deliver solutions that met both
+          technical and business needs. Strengthened communication and problem-solving
+          skills while working in a professional team environment.
         </p>
       </div>
     </div>

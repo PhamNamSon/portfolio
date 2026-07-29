@@ -1,8 +1,9 @@
-import { useState } from "react";
-import type { ReactNode } from "react";
-import { Project } from "@/components/project";
 import { Internship } from "@/components/internship";
+import { Project } from "@/components/project";
+import { Work } from "@/components/work";
 import { X } from "lucide-react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 type Experience = {
   id: number;
@@ -20,15 +21,24 @@ const experiences: Experience[] = [
     title: "Cloud Infrastructure Project",
     description: "Built and deployed my React portfolio using AWS (EC2, S3, CloudFront) with Terraform and CI/CD pipelines.",
     imageUrl: "project.svg",
-    tags: [ "React", "GitHub Actions", "Terraform", "AWS"],
+    tags: ["React", "GitHub Actions", "Terraform", "AWS"],
     details: <Project />
   },
   {
     id: 2,
+    title: "Full-Stack Developer",
+    description: "Working as a Full-Stack Developer, contributing across development, infrastructure, and operations in a small agency environment.",
+    imageUrl: "",
+    tags: ["Kubernetes", "GitHub Actions", "Terraform", "AWS"],
+    duration: "Current",
+    details: <Work />
+  },
+  {
+    id: 3,
     title: "Backend Developer & DevOps",
     description: "Contributed to enterprise telecom systems by building APIs, optimizing databases, and automating CI/CD pipelines.",
     imageUrl: "VNPT.svg",
-    tags: [ "Python", "PostgreSQL", "Docker", "GitLab CI/CD"],
+    tags: ["Python", "PostgreSQL", "Docker", "GitLab CI/CD"],
     duration: "16 months",
     details: <Internship />
   }
@@ -64,8 +74,8 @@ export const ExperienceSection = () => {
 
   return (
     <section id="experience" className="py-24 px-4 relative">
-      {/* <div className="container mx-auto max-w-5xl"> */}
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-5xl">
+        {/* <div className="container mx-auto max-w-4xl"> */}
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           My <span className="text-primary">Experience</span>
         </h2>
@@ -74,8 +84,8 @@ export const ExperienceSection = () => {
           Here are some highlights of my professional experience and projects I've worked on. These roles have allowed me to develop a strong foundation in full-stack development, cloud infrastructure, and DevOps practices.
         </p>
 
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
           {experiences.map((experience) => (
             <div key={experience.id} className="group bg-card rounded-lg overflow-hidden shadow-xs">
               <div className="relative h-48 overflow-hidden">
@@ -83,7 +93,7 @@ export const ExperienceSection = () => {
                   src={experience.imageUrl}
                   alt={experience.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                />
 
                 {experience.duration && (
                   <span className={"absolute top-2 right-2 text-xs font-medium px-2 py-1 rounded-md bg-primary/50 text-primary-foreground"}>
@@ -100,14 +110,14 @@ export const ExperienceSection = () => {
                     </span>
                   ))}
                 </div>
-              </div>
 
-              <h3 className="text-xl font-semibold mb-1">{experience.title}</h3>
+                <h3 className="text-xl font-semibold mb-1">{experience.title}</h3>
 
-              <p className="text-sm mb-4">{experience.description}</p>
+                <p className="text-sm mb-4">{experience.description}</p>
 
-              <div className="flex justify-between items-center px-4">
-                <button className="cosmic-button mb-4" onClick={() => setOpenId(experience.id)}>View Details</button>
+                <div className="flex justify-between items-center px-4">
+                  <button className="cosmic-button mb-4" onClick={() => setOpenId(experience.id)}>View Details</button>
+                </div>
               </div>
             </div>
           ))}
