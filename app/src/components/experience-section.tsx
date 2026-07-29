@@ -75,7 +75,6 @@ export const ExperienceSection = () => {
   return (
     <section id="experience" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
-        {/* <div className="container mx-auto max-w-4xl"> */}
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           My <span className="text-primary">Experience</span>
         </h2>
@@ -85,7 +84,6 @@ export const ExperienceSection = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
           {experiences.map((experience) => (
             <div key={experience.id} className="group bg-card rounded-lg overflow-hidden shadow-xs">
               <div className="relative h-48 overflow-hidden">
@@ -105,7 +103,7 @@ export const ExperienceSection = () => {
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {experience.tags.map((tag) => (
-                    <span className="px-2 py-1 text-xs font-medium border rounded-full bg-primary/20">
+                    <span key={tag} className="px-2 py-1 text-xs font-medium border rounded-full bg-primary/20">
                       {tag}
                     </span>
                   ))}
