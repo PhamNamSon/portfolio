@@ -19,7 +19,7 @@ const experiences: Experience[] = [
   {
     id: 1,
     title: "Cloud Infrastructure Project",
-    description: "Built and deployed my React portfolio using AWS (EC2, S3, CloudFront) with Terraform and CI/CD pipelines.",
+    description: "Built and deployed my React portfolio using AWS (S3, CloudFront) with Terraform and CI/CD pipelines.",
     imageUrl: "project.svg",
     tags: ["React", "GitHub Actions", "Terraform", "AWS"],
     details: <Project />
