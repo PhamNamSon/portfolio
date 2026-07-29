@@ -26,16 +26,16 @@ const experiences: Experience[] = [
   },
   {
     id: 2,
-    title: "Full-Stack Developer",
-    description: "Working as a Full-Stack Developer, contributing across development, infrastructure, and operations in a small agency environment.",
-    imageUrl: "",
-    tags: ["Kubernetes", "GitHub Actions", "Terraform", "AWS"],
-    duration: "Current",
+    title: "Backend Developer & DevOps Engineer",
+    description: "Worked as a Full-Stack Developer, contributing across development, infrastructure, and operations in a small agency environment.",
+    imageUrl: "aws.svg",
+    tags: ["GitHub Actions", "Terraform", "AWS"],
+    duration: "10 months",
     details: <Work />
   },
   {
     id: 3,
-    title: "Backend Developer & DevOps",
+    title: "Backend Developer",
     description: "Contributed to enterprise telecom systems by building APIs, optimizing databases, and automating CI/CD pipelines.",
     imageUrl: "VNPT.svg",
     tags: ["Python", "PostgreSQL", "Docker", "GitLab CI/CD"],

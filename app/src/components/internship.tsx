@@ -3,7 +3,7 @@ export const Internship = () => {
     <div className="bg-card p-6 md:p-8 rounded-lg shadow-xs space-y-6 w-[min(95vw,60rem)] max-w mx-auto text-left">
       <div>
         <h2 className="text-xl font-bold">
-          Backend Developer &amp; DevOps
+          Backend Developer
         </h2>
         <p className="text-sm text-muted-foreground">
           January 2023 - August 2023 <br />
