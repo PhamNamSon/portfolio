@@ -1,11 +1,12 @@
-import { useState } from "react"
 import { LoadingScreen } from "@/components/loading-screen"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { TestPage } from "@/pages/blog/test"
 import { Home } from "@/pages/home"
 import { NotFound } from "@/pages/notfound"
+import { useState } from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 function App() {
-  const [isLoading, setIsLoading] =  useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="blog/test" element={<TestPage />} />
         </Routes>
       </BrowserRouter>
     </>

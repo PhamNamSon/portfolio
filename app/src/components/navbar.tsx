@@ -1,19 +1,35 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", sectionId: "hero" },
+  { name: "About", sectionId: "about" },
+  { name: "Skills", sectionId: "skills" },
+  { name: "Experience", sectionId: "experience" },
+  { name: "Contact", sectionId: "contact" },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const handleNavClick = (sectionId: string) => {
+    setIsMenuOpen(false);
+
+    if (location.pathname === "/") {
+      const el = document.getElementById(sectionId);
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,21 +46,25 @@ export const Navbar = () => {
     )}
     >
       <div className="container flex items-center justify-between md:pr-15 lg:pr-15">
-        <a
-          className="text-xl font-bold text-primary flex items-center"
-          href="#hero"
+        <button
+          onClick={() => handleNavClick("hero")}
+          className="text-xl font-bold text-primary flex items-center cursor-pointer"
         >
           <span className="relative z-10">
             <span className="text-glow text-foreground">Nam Son </span>
             Pham
           </span>
-        </a>
+        </button>
 
         <div className="hidden md:flex space-x-8">
-          {navItems.map((navItems, key) => (
-            <a key={key} href={navItems.href} className="text-foreground/80 hover:text-primary transition-colors duration-300">
-              {navItems.name}
-            </a>
+          {navItems.map((item, key) => (
+            <button
+              key={key}
+              onClick={() => handleNavClick(item.sectionId)}
+              className="text-foreground/80 hover:text-primary transition-colors duration-300 cursor-pointer"
+            >
+              {item.name}
+            </button>
           ))}
         </div>
 
@@ -62,15 +82,14 @@ export const Navbar = () => {
         )}>
 
           <div className="flex flex-col space-y-8 text-xl">
-            {navItems.map((navItems, key) => (
-              <a
+            {navItems.map((item, key) => (
+              <button
                 key={key}
-                href={navItems.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => handleNavClick(item.sectionId)}
+                className="text-foreground/80 hover:text-primary transition-colors duration-300 cursor-pointer"
               >
-                {navItems.name}
-              </a>
+                {item.name}
+              </button>
             ))}
           </div>
         </div>

@@ -36,6 +36,11 @@ export const Work = () => {
         </p>
 
         <p>
+          Used AI coding assistants and LLM tools in daily work to speed up development, 
+          debug faster, and automate repetitive tasks across backend and infrastructure.
+        </p>
+
+        <p>
           Prepared documentation and technical reports to track system status,
           operations, and maintenance procedures. Provided clear guidelines for
           updates, troubleshooting, and knowledge sharing across the team.
