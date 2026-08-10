@@ -52,6 +52,10 @@ jobs:
                 working-directory: app
                 run: npm run build
 
+            -   name: Generate per-route HTML
+                working-directory: app
+                run: node scripts/generate-routes.mjs
+
             -   name: Upload versioned assets with long cache
                 run: |
                     aws s3 sync ./app/dist "s3://${S3_BUCKET}" \
@@ -64,14 +68,13 @@ jobs:
             -   name: Upload HTML with no-cache
                 shell: bash
                 run: |
-                    shopt -s nullglob
-                    for f in app/dist/*.html; do
-                    key="$(basename "$f")"
+                    while IFS= read -r -d '' f; do
+                    key="${f#app/dist/}"
                     aws s3 cp "$f" "s3://${S3_BUCKET}/${key}" \
                         --cache-control "no-store, max-age=0" \
                         --content-type "text/html; charset=utf-8" \
                         --metadata-directive REPLACE
-                    done
+                    done < <(find app/dist -name "*.html" -print0)
             
             -   name: Upload resume with no-cache
                 run: |
@@ -87,9 +90,10 @@ jobs:
                     aws s3 ls "s3://${S3_BUCKET}/index.html" >/dev/null
                     aws s3 ls "s3://${S3_BUCKET}/404.html" >/dev/null
             
+            # ── CHANGED: invalidate everything (new route HTML needs flushing) ──
             -   name: Create CloudFront invalidation
                 run: |
                     aws cloudfront create-invalidation \
                         --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" \
-                        --paths "/" "/*.html" "/assets/namson_resume.pdf"
+                        --paths "/*"
                     echo "✅ Invalidation requested"

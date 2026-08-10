@@ -16,5 +16,20 @@ function handler(event) {
         headers: { "location": { "value": url } }
         };
     }
+
+    var uri = req.uri;
+    if (!uri || uri === "/") {
+        return req;
+    }
+
+    var lastSegment = uri.substring(uri.lastIndexOf("/") + 1);
+    if (lastSegment.indexOf(".") === -1) {
+        if (uri.charAt(uri.length - 1) === "/") {
+            req.uri = uri + "index.html";
+        } else {
+            req.uri = uri + "/index.html";
+        }
+    }
+
     return req;
 }
