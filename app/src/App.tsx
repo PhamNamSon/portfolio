@@ -1,5 +1,5 @@
 import { LoadingScreen } from "@/components/loading-screen"
-import { TestPage } from "@/pages/blog/test"
+import { MyFirstAmazonInterview } from "@/pages/blog/my-first-amazon-interview"
 import { Home } from "@/pages/home"
 import { NotFound } from "@/pages/notfound"
 import { useState } from "react"
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="blog/test" element={<TestPage />} />
+          <Route path="blog/my-first-amazon-interview" element={<MyFirstAmazonInterview />} />
         </Routes>
       </BrowserRouter>
     </>
