@@ -19,5 +19,3 @@ variable "root_domain" {
   type        = string
   default     = "namson.io"
 }
-
-variable "to_address"   { type = string }  # your inbox
