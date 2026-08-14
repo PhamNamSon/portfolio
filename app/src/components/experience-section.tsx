@@ -30,7 +30,7 @@ const experiences: Experience[] = [
     description: "Worked as a Full-Stack Developer, contributing across development, infrastructure, and operations in a small agency environment.",
     imageUrl: "aws.svg",
     tags: ["GitHub Actions", "Terraform", "AWS"],
-    duration: "10 months",
+    duration: "1+ year",
     details: <Work />
   },
   {

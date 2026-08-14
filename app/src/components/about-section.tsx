@@ -15,7 +15,7 @@ export const AboutSection = () => {
             </h3>
 
             <p>
-              With 2 years of experience and a Bachelor of Science in Computer Engineering from the University of Alberta, I bring a strong foundation in software engineering and a growing passion for cloud technologies. My skills span frontend, backend, DevOps, and cloud, allowing me to contribute across the stack and adapt to diverse roles.
+              With 3 years of experience and a Bachelor of Science in Computer Engineering from the University of Alberta, I bring a strong foundation in software engineering and a growing passion for cloud technologies. My skills span frontend, backend, DevOps, and cloud, allowing me to contribute across the stack and adapt to diverse roles.
             </p>
 
             <p>
@@ -40,7 +40,7 @@ export const AboutSection = () => {
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Work Experience</h4>
-                  <p>2 years<br />Full-stack Development & DevOps</p>
+                  <p>3 years<br />Full-stack Development & DevOps</p>
                 </div>
               </div>
             </div>

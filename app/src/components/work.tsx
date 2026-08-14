@@ -6,7 +6,7 @@ export const Work = () => {
           Backend Developer &amp; DevOps Engineer
         </h2>
         <p className="text-sm text-muted-foreground">
-          June 2025 - Mar 2026
+          June 2025 - Present
         </p>
       </div>
 
