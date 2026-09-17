@@ -29,7 +29,7 @@ const experiences: Experience[] = [
     title: "Backend Developer & DevOps Engineer",
     description: "Worked as a Full-Stack Developer, contributing across development, infrastructure, and operations in a small agency environment.",
     imageUrl: "aws.svg",
-    tags: ["GitHub Actions", "Terraform", "AWS"],
+    tags: ["Python", "Java", "GitHub Actions", "Terraform", "AWS"],
     duration: "1+ year",
     details: <Work />
   },
@@ -38,7 +38,7 @@ const experiences: Experience[] = [
     title: "Backend Developer",
     description: "Contributed to enterprise telecom systems by building APIs, optimizing databases, and automating CI/CD pipelines.",
     imageUrl: "VNPT.svg",
-    tags: ["Python", "PostgreSQL", "Docker", "GitLab CI/CD"],
+    tags: ["Python", "Java", "Docker", "GitLab CI/CD"],
     duration: "16 months",
     details: <Internship />
   }

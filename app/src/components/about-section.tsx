@@ -11,15 +11,15 @@ export const AboutSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">
-              Full-stack developer, experienced with Cloud & DevOps
+              Backend developer with cloud and DevOps experience
             </h3>
 
             <p>
-              With 3 years of experience and a Bachelor of Science in Computer Engineering from the University of Alberta, I bring a strong foundation in software engineering and a growing passion for cloud technologies. My skills span frontend, backend, DevOps, and cloud, allowing me to contribute across the stack and adapt to diverse roles.
+              With 3 years of experience and a Bachelor of Science in Computer Engineering from the University of Alberta, I work across backend development, cloud infrastructure, and DevOps. I am comfortable moving between application code, delivery pipelines, and the infrastructure underneath.
             </p>
 
             <p>
-              I have hands-on experience with React and Tailwind CSS on the frontend, Python and PostgreSQL on the backend, and DevOps practices with Docker and GitLab CI/CD. More recently, I've been expanding into cloud infrastructure with AWS and Terraform. What excites me most is solving problems at the intersection of software and infrastructure—creating scalable, reliable systems and continuously learning along the way.
+              On the backend I work with Python, Java, and Spring Boot, and use PostgreSQL for data. I build APIs with FastAPI, package services with Docker, and run them on Kubernetes. On the cloud side I work with AWS and Terraform, and automate delivery with GitHub Actions and GitLab CI/CD. What I enjoy most is the space where software meets infrastructure, and learning what each side needs from the other.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
@@ -40,7 +40,7 @@ export const AboutSection = () => {
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Work Experience</h4>
-                  <p>3 years<br />Full-stack Development & DevOps</p>
+                  <p>3 years<br />Backend Development & DevOps</p>
                 </div>
               </div>
             </div>
@@ -62,9 +62,9 @@ export const AboutSection = () => {
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Certifications</h4>
-                  <p>Certified Kubernetes Administrator</p>
-                  <p>AWS Solutions Architect - Associate</p>
-                  <p>AWS Certiﬁed Developer - Associate</p>
+                  <p>Certified Kubernetes Administrator (CKA)</p>
+                  <p>AWS Certified Solutions Architect - Associate</p>
+                  <p>AWS Certified Developer - Associate</p>
                   <p>Microsoft Certified: Azure Administrator Associate</p>
                 </div>
               </div>

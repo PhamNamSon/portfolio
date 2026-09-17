@@ -12,45 +12,37 @@ export const Work = () => {
 
       <div className="space-y-4 text-[1.05rem] leading-relaxed">
         <p>
-          Worked as a Full Stack Web Developer on client projects, contributing across
-          development, infrastructure, and operations.
+          Backend and DevOps work on client projects, covering development,
+          deployment, and day to day operations.
         </p>
 
         <p>
-          Used React to build features and reusable components for client projects.
-          Ensured modern, responsive interfaces that deliver a smooth user experience.
+          Developed and maintained REST APIs with Django and Spring Boot, using
+          PostgreSQL for data management. That work included schema design, secure
+          and well tuned queries, and keeping data flow consistent across applications.
+
         </p>
 
         <p>
-          Developed and maintained backend services and APIs with Python, integrating with
-          PostgreSQL for data management. Responsibilities included designing schemas,
-          writing secure and efficient queries, and ensuring reliable data flow across
-          applications.
+          Packaged services with Docker and ran them on Kubernetes. Built
+          and maintained delivery pipelines with GitHub Actions, and handled
+          deployment, monitoring, and support for the environments I worked in.
         </p>
 
         <p>
-          Managed cloud and DevOps operations such as containerization with Docker,
-          orchestration with and deployment pipelines. Configured and
-          optimized web servers, automated workflows with GitHub Actions, and monitored
-          system performance to deliver stable and scalable solutions.
+          Provisioned AWS infrastructure with Terraform, applying Infrastructure
+          as Code for repeatable environments across projects.
         </p>
 
         <p>
-          Used AI coding assistants and LLM tools in daily work to speed up development, 
-          debug faster, and automate repetitive tasks across backend and infrastructure.
+          Used AI coding assistants and LLM tools in daily work to speed up
+          development, debug faster, and automate repetitive tasks across
+          backend and infrastructure.
         </p>
 
         <p>
-          Prepared documentation and technical reports to track system status,
-          operations, and maintenance procedures. Provided clear guidelines for
-          updates, troubleshooting, and knowledge sharing across the team.
-        </p>
-
-        <p>
-          Collaborated within a small agency environment, working closely with
-          designers, project managers, and developers. Contributed across the full
-          lifecycle of projects — from feature development and infrastructure setup to
-          deployment, monitoring, and long-term maintenance.
+          Worked directly with a small client team across feature delivery,
+          deployment, and ongoing support.
         </p>
       </div>
     </div>
