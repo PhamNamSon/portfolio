@@ -26,7 +26,7 @@ export const AboutSection = () => {
               <a href="#contact" className="cosmic-button">
                 Get In Touch
               </a>
-              <a href="namson_resume.pdf" target="_blank" rel="noreferrer" className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/20 transition-colors duration-300">
+              <a href="Nam_Son_resume.pdf" target="_blank" rel="noreferrer" className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/20 transition-colors duration-300">
                 View Resume
               </a>
             </div>
@@ -64,6 +64,7 @@ export const AboutSection = () => {
                   <h4 className="font-semibold text-lg">Certifications</h4>
                   <p>Certified Kubernetes Administrator</p>
                   <p>AWS Solutions Architect - Associate</p>
+                  <p>AWS Certiﬁed Developer - Associate</p>
                   <p>Microsoft Certified: Azure Administrator Associate</p>
                 </div>
               </div>

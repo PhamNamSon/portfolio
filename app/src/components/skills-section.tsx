@@ -15,6 +15,7 @@ const skills: Skill[] = [
   { name: "HTML", category: "Frontend", icon: "html5.svg" },
 
   { name: "Python", category: "Backend", icon: "python.svg" },
+  { name: "Java", category: "Backend", icon: "java.svg" },
   { name: "PostgreSQL", category: "Backend", icon: "postgresql.svg" },
   { name: "MySQL", category: "Backend", icon: "mysql.svg" },
   { name: "MongoDB", category: "Backend", icon: "mongodb.svg" },
