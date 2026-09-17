@@ -27,18 +27,18 @@ const experiences: Experience[] = [
   {
     id: 2,
     title: "Backend Developer & DevOps Engineer",
-    description: "Worked as a Full-Stack Developer, contributing across development, infrastructure, and operations in a small agency environment.",
+    description: "Backend and DevOps work on client projects in a small agency environment, across development, infrastructure, and operations.",
     imageUrl: "aws.svg",
-    tags: ["Python", "Java", "GitHub Actions", "Terraform", "AWS"],
+    tags: ["Django", "Spring Boot", "Docker", "Kubernetes", "GitHub Actions", "Terraform", "AWS"],
     duration: "1+ year",
     details: <Work />
   },
   {
     id: 3,
     title: "Backend Developer",
-    description: "Contributed to enterprise telecom systems by building APIs, optimizing databases, and automating CI/CD pipelines.",
+    description: "Contributed to enterprise telecom systems by building APIs, tuning databases, and automating CI/CD pipelines.",
     imageUrl: "VNPT.svg",
-    tags: ["Python", "Java", "Docker", "GitLab CI/CD"],
+    tags: ["FastAPI", "Spring Boot", "PostgreSQL", "Docker", "GitLab CI/CD"],
     duration: "16 months",
     details: <Internship />
   }
@@ -80,7 +80,7 @@ export const ExperienceSection = () => {
         </h2>
 
         <p className="text-center mb-12 max-w-2xl mx-auto">
-          Here are some highlights of my professional experience and projects I've worked on. These roles have allowed me to develop a strong foundation in full-stack development, cloud infrastructure, and DevOps practices.
+          Here are some highlights of my professional experience and projects I've worked on. These roles gave me a strong base in backend development, cloud infrastructure, and DevOps.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

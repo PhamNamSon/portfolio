@@ -20,12 +20,11 @@ export const Work = () => {
           Developed and maintained REST APIs with Django and Spring Boot, using
           PostgreSQL for data management. That work included schema design, secure
           and well tuned queries, and keeping data flow consistent across applications.
-
         </p>
 
         <p>
-          Packaged services with Docker and ran them on Kubernetes. Built
-          and maintained delivery pipelines with GitHub Actions, and handled
+          Packaged services with Docker and ran them on Kubernetes. Built and
+          maintained delivery pipelines with GitHub Actions, and handled
           deployment, monitoring, and support for the environments I worked in.
         </p>
 

@@ -19,7 +19,7 @@ export const AboutSection = () => {
             </p>
 
             <p>
-              On the backend I work with Python, Java, and Spring Boot, and use PostgreSQL for data. I build APIs with FastAPI, package services with Docker, and run them on Kubernetes. On the cloud side I work with AWS and Terraform, and automate delivery with GitHub Actions and GitLab CI/CD. What I enjoy most is the space where software meets infrastructure, and learning what each side needs from the other.
+              On the backend I work with Python and Java, building REST APIs with Django, Spring Boot, and FastAPI. I use PostgreSQL for data, package services with Docker, and run them on Kubernetes. On the cloud side I work with AWS and Terraform, and automate delivery with GitHub Actions and GitLab CI/CD. What I enjoy most is the space where software meets infrastructure, and learning what each side needs from the other.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
