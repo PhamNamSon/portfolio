@@ -61,7 +61,7 @@ jobs:
                     aws s3 sync ./app/dist "s3://${S3_BUCKET}" \
                     --delete \
                     --exclude "*.html" \
-                    --exclude "assets/namson_resume.pdf" \
+                    --exclude "assets/Nam_Son_resume.pdf" \
                     --cache-control "public,max-age=31536000,immutable" \
                     --metadata-directive REPLACE
 
@@ -78,8 +78,8 @@ jobs:
             
             -   name: Upload resume with no-cache
                 run: |
-                    if [ -f app/dist/assets/namson_resume.pdf ]; then
-                    aws s3 cp app/dist/assets/namson_resume.pdf "s3://${S3_BUCKET}/assets/namson_resume.pdf" \
+                    if [ -f app/dist/assets/Nam_Son_resume.pdf ]; then
+                    aws s3 cp app/dist/assets/Nam_Son_resume.pdf "s3://${S3_BUCKET}/assets/Nam_Son_resume.pdf" \
                         --cache-control "no-store, max-age=0" \
                         --content-type "application/pdf" \
                         --metadata-directive REPLACE
