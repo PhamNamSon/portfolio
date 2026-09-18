@@ -56,14 +56,13 @@ jobs:
                 working-directory: app
                 run: node scripts/generate-routes.mjs
 
-            -   name: Upload versioned assets with long cache
+            -   name: Upload resume with no-cache
                 run: |
-                    aws s3 sync ./app/dist "s3://${S3_BUCKET}" \
-                    --delete \
-                    --exclude "*.html" \
-                    --exclude "assets/Nam_Son_resume.pdf" \
-                    --cache-control "public,max-age=31536000,immutable" \
-                    --metadata-directive REPLACE
+                    if [ -f app/dist/Nam_Son_resume.pdf ]; then
+                    aws s3 cp app/dist/Nam_Son_resume.pdf "s3://${S3_BUCKET}/Nam_Son_resume.pdf" \
+                        --cache-control "no-store, max-age=0" \
+                        --content-type "application/pdf" \
+                        --metadata-directive REPLACE
 
             -   name: Upload HTML with no-cache
                 shell: bash
