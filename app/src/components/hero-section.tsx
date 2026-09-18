@@ -15,7 +15,7 @@ export const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I design and build scalable systems with modern cloud and DevOps practices. With skills across frontend, backend, and cloud, I adapt to deliver end-to-end solutions.
+            I build backend services and cloud infrastructure with modern DevOps practices. I work with Django, Spring Boot, and FastAPI, and run what I build on AWS, Docker, and Kubernetes.
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">

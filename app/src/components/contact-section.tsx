@@ -21,7 +21,7 @@ export const ContactSection = () => {
             </div>
             <div className="text-center">
               <h4 className="font-semibold mb-1">Email</h4>
-              <a href="mailto:..." className="text-sm hover:text-primary hover:underline">
+              <a href="mailto:phamnamson1999@gmail.com" className="text-sm hover:text-primary hover:underline">
                 phamnamson1999@gmail.com
               </a>
             </div>
@@ -33,7 +33,7 @@ export const ContactSection = () => {
             </div>
             <div className="text-center">
               <h4 className="font-semibold mb-1">Phone</h4>
-              <a href="tel:..." className="text-sm hover:text-primary hover:underline">
+              <a href="tel:+15879743105" className="text-sm hover:text-primary hover:underline">
                 587-974-3105
               </a>
             </div>
@@ -45,7 +45,7 @@ export const ContactSection = () => {
             </div>
             <div className="text-center">
               <h4 className="font-semibold mb-1">LinkedIn</h4>
-              <a href="..." className="text-sm hover:text-primary hover:underline">
+              <a href="https://www.linkedin.com/in/nam-son-pham/" target="_blank" rel="noreferrer" className="text-sm hover:text-primary hover:underline">
                 linkedin.com/in/nam-son-pham
               </a>
             </div>
