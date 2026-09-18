@@ -5,7 +5,7 @@ on:
         branches: [ main ]
         paths:
         - "app/**"
-        - ".github/workflows/cd-s3-deploy.yml"
+        - ".github/workflows/cd-s3-push.yml"
     workflow_dispatch:
 
 permissions:
@@ -56,6 +56,15 @@ jobs:
                 working-directory: app
                 run: node scripts/generate-routes.mjs
 
+            -   name: Upload versioned assets with long cache
+                run: |
+                    aws s3 sync ./app/dist "s3://${S3_BUCKET}" \
+                    --delete \
+                    --exclude "*.html" \
+                    --exclude "Nam_Son_resume.pdf" \
+                    --cache-control "public,max-age=31536000,immutable" \
+                    --metadata-directive REPLACE
+
             -   name: Upload resume with no-cache
                 run: |
                     if [ -f app/dist/Nam_Son_resume.pdf ]; then
@@ -63,6 +72,7 @@ jobs:
                         --cache-control "no-store, max-age=0" \
                         --content-type "application/pdf" \
                         --metadata-directive REPLACE
+                    fi
 
             -   name: Upload HTML with no-cache
                 shell: bash
