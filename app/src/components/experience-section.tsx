@@ -19,12 +19,14 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    id: 4,
-    title: "Cloud Infrastructure Project",
-    description: "Built and deployed my React portfolio using AWS (S3, CloudFront) with Terraform and CI/CD pipelines.",
-    imageUrl: "project.svg",
-    tags: ["React", "GitHub Actions", "Terraform", "AWS"],
-    details: <Project />
+    id: 1,
+    title: "Backend Developer & DevOps Engineer",
+    description: "Backend and DevOps work on client projects in a small agency environment, across development, infrastructure, and operations.",
+    imageUrl: "aws.svg",
+    tags: ["Django", "Spring Boot", "Docker", "Kubernetes", "GitHub Actions", "Terraform", "AWS"],
+    duration: "1+ year",
+    imageFit: "object-contain",
+    details: <Work />
   },
   {
     id: 2,
@@ -36,16 +38,6 @@ const experiences: Experience[] = [
     details: <Sentinel />
   },
   {
-    id: 1,
-    title: "Backend Developer & DevOps Engineer",
-    description: "Backend and DevOps work on client projects in a small agency environment, across development, infrastructure, and operations.",
-    imageUrl: "aws.svg",
-    tags: ["Django", "Spring Boot", "Docker", "Kubernetes", "GitHub Actions", "Terraform", "AWS"],
-    duration: "1+ year",
-    imageFit: "object-contain",
-    details: <Work />
-  },
-  {
     id: 3,
     title: "Backend Developer",
     description: "Contributed to enterprise telecom systems by building APIs, tuning databases, and automating CI/CD pipelines.",
@@ -53,6 +45,14 @@ const experiences: Experience[] = [
     tags: ["FastAPI", "Spring Boot", "PostgreSQL", "Docker", "GitLab CI/CD"],
     duration: "16 months",
     details: <Internship />
+  },
+  {
+    id: 4,
+    title: "Cloud Infrastructure Project",
+    description: "Built and deployed my React portfolio using AWS (S3, CloudFront) with Terraform and CI/CD pipelines.",
+    imageUrl: "project.svg",
+    tags: ["React", "GitHub Actions", "Terraform", "AWS"],
+    details: <Project />
   }
 ];
 
