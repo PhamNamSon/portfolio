@@ -92,7 +92,7 @@ export const ExperienceSection = () => {
           Here are some highlights of my professional experience and projects I've worked on. These roles gave me a strong base in backend development, cloud infrastructure, and DevOps.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {experiences.map((experience) => (
             <div key={experience.id} className="group bg-card rounded-lg overflow-hidden shadow-xs">
               <div className="relative h-48 overflow-hidden">
