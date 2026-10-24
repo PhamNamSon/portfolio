@@ -13,12 +13,13 @@ type Experience = {
   imageUrl: string;
   tags: string[];
   duration?: string;
+  imageFit?: string;
   details?: ReactNode;
 };
 
 const experiences: Experience[] = [
   {
-    id: 1,
+    id: 4,
     title: "Cloud Infrastructure Project",
     description: "Built and deployed my React portfolio using AWS (S3, CloudFront) with Terraform and CI/CD pipelines.",
     imageUrl: "project.svg",
@@ -31,19 +32,21 @@ const experiences: Experience[] = [
     description: "Built a GitOps managed Kubernetes platform with a full metrics, logs, and traces observability stack.",
     imageUrl: "lgtm.svg",
     tags: ["Kubernetes", "ArgoCD", "Grafana", "Prometheus", "OpenTelemetry", "Ansible", "GitHub Actions"],
+    imageFit: "object-contain",
     details: <Sentinel />
   },
   {
-    id: 3,
+    id: 1,
     title: "Backend Developer & DevOps Engineer",
     description: "Backend and DevOps work on client projects in a small agency environment, across development, infrastructure, and operations.",
     imageUrl: "aws.svg",
     tags: ["Django", "Spring Boot", "Docker", "Kubernetes", "GitHub Actions", "Terraform", "AWS"],
     duration: "1+ year",
+    imageFit: "object-contain",
     details: <Work />
   },
   {
-    id: 4,
+    id: 3,
     title: "Backend Developer",
     description: "Contributed to enterprise telecom systems by building APIs, tuning databases, and automating CI/CD pipelines.",
     imageUrl: "VNPT.svg",
@@ -99,7 +102,7 @@ export const ExperienceSection = () => {
                 <img
                   src={experience.imageUrl}
                   alt={experience.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={`w-full h-full ${experience.imageFit ?? "object-cover"} transition-transform duration-500 group-hover:scale-110`}
                 />
 
                 {experience.duration && (
