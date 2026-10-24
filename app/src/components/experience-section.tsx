@@ -1,6 +1,7 @@
-import { Internship } from "@/components/internship";
 import { Project } from "@/components/project";
+import { Sentinel } from "@/components/sentinel";
 import { Work } from "@/components/work";
+import { Internship } from "@/components/internship";
 import { X } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -26,6 +27,14 @@ const experiences: Experience[] = [
   },
   {
     id: 2,
+    title: "DevOps & Observability Project",
+    description: "Built a GitOps managed Kubernetes platform with a full metrics, logs, and traces observability stack.",
+    imageUrl: "lgtm.svg",
+    tags: ["Kubernetes", "ArgoCD", "Grafana", "Prometheus", "OpenTelemetry", "Ansible", "GitHub Actions"],
+    details: <Sentinel />
+  },
+  {
+    id: 3,
     title: "Backend Developer & DevOps Engineer",
     description: "Backend and DevOps work on client projects in a small agency environment, across development, infrastructure, and operations.",
     imageUrl: "aws.svg",
@@ -34,7 +43,7 @@ const experiences: Experience[] = [
     details: <Work />
   },
   {
-    id: 3,
+    id: 4,
     title: "Backend Developer",
     description: "Contributed to enterprise telecom systems by building APIs, tuning databases, and automating CI/CD pipelines.",
     imageUrl: "VNPT.svg",

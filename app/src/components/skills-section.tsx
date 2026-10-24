@@ -22,6 +22,11 @@ const skills: Skill[] = [
 
   { name: "Kubernetes", category: "DevOps and Cloud", icon: "kubernetes.svg" },
   { name: "Docker", category: "DevOps and Cloud", icon: "docker.svg" },
+  { name: "ArgoCD", category: "DevOps and Cloud", icon: "argocd.svg" },
+  { name: "Prometheus", category: "DevOps and Cloud", icon: "prometheus.svg" },
+  { name: "Grafana", category: "DevOps and Cloud", icon: "grafana.svg" },
+  { name: "OpenTelemetry", category: "DevOps and Cloud", icon: "opentelemetry.svg" },
+  { name: "Ansible", category: "DevOps and Cloud", icon: "ansible.svg" },
   { name: "GitHub Actions", category: "DevOps and Cloud", icon: "github-actions.svg" },
   { name: "GitLab CI/CD", category: "DevOps and Cloud", icon: "gitlab.svg" },
   { name: "Terraform", category: "DevOps and Cloud", icon: "terraform.svg" },
