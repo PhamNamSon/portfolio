@@ -15,12 +15,22 @@ export const AboutSection = () => {
             </h3>
 
             <p>
-              With 3 years of experience and a Bachelor of Science in Computer Engineering from the University of Alberta, I work across backend development, cloud infrastructure, and DevOps. I am comfortable moving between application code, delivery pipelines, and the infrastructure underneath.
+              With 3 years of experience and a Bachelor of Science in Computer Engineering from the
+              University of Alberta, I work across backend development, cloud infrastructure, and
+              DevOps. I am comfortable moving between application code, delivery pipelines, and the
+              infrastructure underneath.
             </p>
 
             <p>
-              On the backend I work with Python and Java, building REST APIs with Django, Spring Boot, and FastAPI. I use PostgreSQL for data, package services with Docker, and run them on Kubernetes. On the cloud side I work with AWS and Terraform, and automate delivery with GitHub Actions and GitLab CI/CD. What I enjoy most is the space where software meets infrastructure, and learning what each side needs from the other.
+              On the backend I work with Python and Java, building REST APIs with Django, Spring Boot,
+              and FastAPI. I use PostgreSQL for data, package services with Docker, and run them on
+              Kubernetes. On the cloud side I work with AWS and Terraform, and automate delivery with
+              GitHub Actions and GitLab CI/CD. I also work with GitOps delivery and observability tooling,
+              including ArgoCD, Prometheus, Grafana, OpenTelemetry, and Ansible. What I enjoy most is
+              the space where software meets infrastructure, and learning what each side needs from the other.
             </p>
+
+
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
               <a href="#contact" className="cosmic-button">

@@ -6,7 +6,7 @@ export const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 text-center"
     >
-     <div className="container max-w-4xl mx-auto text-center z-10 px-2">
+      <div className="container max-w-4xl mx-auto text-center z-10 px-2">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             <span className="opacity-0 animate-fade-in">Hello, I'm </span>
@@ -15,7 +15,7 @@ export const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I build backend services and cloud infrastructure with modern DevOps practices. I work with Django, Spring Boot, and FastAPI, and run what I build on AWS, Docker, and Kubernetes.
+            I build backend services and cloud infrastructure with modern DevOps practices. I work with Django, Spring Boot, and FastAPI, and run what I build on AWS, Docker, and Kubernetes, with GitOps delivery and observability built in.
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">
